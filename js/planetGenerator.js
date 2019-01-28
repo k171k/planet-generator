@@ -76,11 +76,11 @@ window.addEventListener('load', function(){
 	];
 
 	var planet = {
-		nbrVertices : 512,
+		nbrVertices : 256,
 		radius :  150,
 		initPos : [],
 		octave : 256,
-		amplitude : 5,
+		amplitude : 0,
 		noiseIteration : 6,
 		turbColor : [],
 		seaLevel : .5,
@@ -89,15 +89,15 @@ window.addEventListener('load', function(){
 		colorSurface : {},
 		ArrayIndex : [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ],
 		thermalErosionFactor : 25,
-		hydraulicErosionFactor : 50,
+		hydraulicErosionFactor : 25,
 		HeightMap : [],
 		Water_table : [],
 		Sediment_Table : [],
 		create : function(){	
 			var obj = Object.create(this);
-			// obj.setCubeMesh();
+			obj.setCubeMesh();
 			// obj.setPlaneMesh();
-			obj.setSphereMesh();
+			// obj.setSphereMesh();
 			return obj;
 		},
 		setPlaneMesh : function(){
@@ -157,7 +157,7 @@ window.addEventListener('load', function(){
 					sumNoise += tempNoise / noiseIteration;
 					octave /= octaveVar;
 				}
-				var IcePole = this.poleWeight( originalCoord._Y, sumNoise );
+				var IcePole = this.poleWeight( originalCoord._Z, sumNoise );
 				IcePole *= sumNoise;
 				sumNoise += IcePole;
 				var VerticesVal = normSum( sumNoise, this.seaLevel, this.mountainLevel);
@@ -292,7 +292,7 @@ window.addEventListener('load', function(){
 
 	var noiseMotion = Math.random()*1000,
 	update = false;
-	noise.seed( Math.random() );
+	noise.seed( 1);//Math.random() );
 
 	var scene = new THREE.Scene();
 	var camera = new THREE.PerspectiveCamera( 90, window.innerWidth/window.innerHeight, 0.1, 1500 );
@@ -358,6 +358,7 @@ window.addEventListener('load', function(){
    	f1.add(thePlanet, 'mountainLevel', 0, 1).onChange(function(newValue){thePlanet.mountainLevel = newValue, terraForming();});
    	f1.add(thePlanet, 'poleSize', 0, 150).onChange(function(newValue){thePlanet.poleSize = newValue, terraForming();});
    	f1.add(thePlanet, 'thermalErosionFactor', 0, 50).onChange(function(newValue){thePlanet.thermalErosionFactor = newValue, terraForming();});
+   	//f1.add(thePlanet, 'hydraulicErosionFactor', 0, 50).onChange(function(newValue){thePlanet.hydraulicErosionFactor = newValue, terraForming();});
 
     // var f2 = gui.addFolder('Color');
     // for( var i = 0; i < color.length; i++ ){
