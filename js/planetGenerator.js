@@ -95,9 +95,9 @@ window.addEventListener('load', function(){
 		Sediment_Table : [],
 		create : function(){	
 			var obj = Object.create(this);
-			obj.setCubeMesh();
+			//obj.setCubeMesh();
 			// obj.setPlaneMesh();
-			// obj.setSphereMesh();
+			obj.setSphereMesh();
 			return obj;
 		},
 		setPlaneMesh : function(){
